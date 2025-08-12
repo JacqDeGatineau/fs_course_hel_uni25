@@ -1,11 +1,32 @@
 import { useState } from 'react'
 
+const Statistics = (props) => {
+  console.log(props)
+  const sum = props.good + props.neutral + props.bad
+  const avrg = (props.good + props.neutral + props.bad) / Object.keys(props).length
+  const pos = props.good / sum * 100
+   
+  console.log(sum)
+
+  return (
+    <div>
+      <p>good {props.good}</p>
+      <p>neutral {props.neutral}</p>
+      <p>bad {props.bad}</p>
+      <p>all {sum}</p>
+      <p>average {avrg}</p>
+      <p>positive {pos}</p>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const sum = Statistics(good)
   return (
     <div>
       <h1>give feedback</h1>
@@ -20,12 +41,7 @@ const App = () => {
       </button>
 
       <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {good + neutral + bad}</p>
-      <p>average {(good + neutral + bad) / 3}</p>
-      <p>positive {good / (good + neutral + bad) * 100} %</p>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
     
   )
