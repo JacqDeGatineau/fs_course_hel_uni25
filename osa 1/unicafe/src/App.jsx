@@ -10,21 +10,16 @@ const Button = (props) => {
 
 const StatisticLine = (props) => {
   return (
-    <p value={props.value}>
-      {props.text} {props.value}
-    </p>
+    <tr value={props.value}>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   )  
 } 
 
 const Statistics = ({good, neutral, bad}) => {
   console.log({good, neutral, bad})
-  const sum = good + neutral + bad
-  console.log("sum", sum)
-  const avrg = (good + neutral + bad) / 3
-  const pos = good / sum * 100
-  
-  /*const sum = () => setGood(good + 1)*/
-
+  const sum = good + neutral + bad 
   if (sum === 0) {
    return(
    <div>
@@ -33,14 +28,16 @@ const Statistics = ({good, neutral, bad}) => {
    )
   }
   return (
-    <div>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="all" value ={good + neutral + bad} />
-      <StatisticLine text="average" value ={(good + neutral + bad) / 3} />
-      <StatisticLine text="positive" value ={good / sum * 100} />
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine text="good" value ={good} />
+        <StatisticLine text="neutral" value ={neutral} />
+        <StatisticLine text="bad" value ={bad} />
+        <StatisticLine text="all" value ={good + neutral + bad} />
+        <StatisticLine text="average" value ={((good + (bad * -1)) / sum).toFixed(2)} />
+        <StatisticLine text="positive" value ={(good / sum * 100).toFixed(1) + "%"} /> 
+      </tbody>
+    </table>
   )
 }
 
